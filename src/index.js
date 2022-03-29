@@ -1,9 +1,12 @@
 const express = require("express");
 const helmet = require("helmet");
 const morgan = require("morgan");
+const setupDB = require("./database");
+require("dotenv").config();
 
 function main() {
   const server = express();
+  setupDB();
 
   server.use(express.json());
   server.use(express.urlencoded({ extended: true }));
