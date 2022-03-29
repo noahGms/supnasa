@@ -2,12 +2,12 @@ const User = require("./model");
 const {returnData, returnError, returnSuccess} = require("../../helpers/responses");
 const {userCreateSchema, userUpdateSchema} = require("./validation");
 
-exports.index = async (req, res) => {
+exports.index = async function (req, res) {
   const users = await User.find();
   return returnData(res, users);
 };
 
-exports.show = async (req, res) => {
+exports.show = async function (req, res) {
   const user = await User.findById(req.params.id);
 
   if (!user) {
@@ -17,7 +17,7 @@ exports.show = async (req, res) => {
   return returnData(res, user);
 };
 
-exports.store = async (req, res) => {
+exports.store = async function (req, res) {
   try {
     const result = await userCreateSchema.validateAsync(req.body);
     await User.create(result);
@@ -28,7 +28,7 @@ exports.store = async (req, res) => {
   return returnSuccess(res, "User created successfully");
 };
 
-exports.update = async (req, res) => {
+exports.update = async function (req, res) {
   const user = await User.findById(req.params.id);
 
   if (!user) {
@@ -49,7 +49,7 @@ exports.update = async (req, res) => {
   return returnData(res, "User updated successfully");
 };
 
-exports.destroy = async (req, res) => {
+exports.destroy = async function (req, res) {
   const user = await User.findById(req.params.id);
 
   if (!user) {
