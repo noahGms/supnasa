@@ -46,7 +46,7 @@ exports.update = async function (req, res) {
     return returnError(res, error.message);
   }
 
-  return returnData(res, "User updated successfully");
+  return returnSuccess(res, "User updated successfully");
 };
 
 exports.destroy = async function (req, res) {

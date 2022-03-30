@@ -58,7 +58,7 @@ exports.update = async function (req, res) {
     return returnError(res, err.message);
   }
 
-  return returnData(res, "Rover updated successfully");
+  return returnSuccess(res, "Rover updated successfully");
 };
 
 exports.destroy = async function (req, res) {
