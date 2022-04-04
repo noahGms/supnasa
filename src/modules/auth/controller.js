@@ -2,6 +2,12 @@ const {returnError, returnData} = require("../../helpers/responses");
 const jwt = require('jsonwebtoken');
 const User = require("../users/model");
 
+/**
+ * @api {post} /api/auth/login Login
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.login = async function(req, res) {
   const { email, password } = req.body;
   if (!email || !password) {
@@ -28,6 +34,12 @@ exports.login = async function(req, res) {
     .json({message: "Login successful"});
 };
 
+/**
+ * @api {get} /api/auth/whoami Who am I?
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.whoami = function(req, res) {
   return returnData(res, req.user);
 };

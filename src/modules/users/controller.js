@@ -2,11 +2,23 @@ const User = require("./model");
 const {returnData, returnError, returnSuccess} = require("../../helpers/responses");
 const {userCreateSchema, userUpdateSchema} = require("./validation");
 
+/**
+ * @api {get} /api/users Get all users
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.index = async function (req, res) {
   const users = await User.find();
   return returnData(res, users);
 };
 
+/**
+ * @api {get} /api/users/:id Get user by id
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.show = async function (req, res) {
   const user = await User.findById(req.params.id);
 
@@ -17,6 +29,12 @@ exports.show = async function (req, res) {
   return returnData(res, user);
 };
 
+/**
+ * @api {post} /api/users Create new user
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.store = async function (req, res) {
   try {
     const result = await userCreateSchema.validateAsync(req.body);
@@ -28,6 +46,12 @@ exports.store = async function (req, res) {
   return returnSuccess(res, "User created successfully");
 };
 
+/**
+ * @api {put} /api/users/:id Update user
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.update = async function (req, res) {
   const user = await User.findById(req.params.id);
 
@@ -49,6 +73,12 @@ exports.update = async function (req, res) {
   return returnSuccess(res, "User updated successfully");
 };
 
+/**
+ * @api {delete} /api/users/:id Delete user
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.destroy = async function (req, res) {
   const user = await User.findById(req.params.id);
 

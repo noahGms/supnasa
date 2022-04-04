@@ -2,6 +2,12 @@ const {returnData, returnError, returnSuccess} = require("../../helpers/response
 const Rover = require("./model");
 const {roverCreateSchema, roverUpdateSchema} = require("./validation");
 
+/**
+ * @api {get} /api/rovers Get all rovers
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.index = async function (req, res) {
   let limit = 10;
   let sort = {};
@@ -23,6 +29,12 @@ exports.index = async function (req, res) {
   return returnData(res, rovers);
 };
 
+/**
+ * @api {get} /api/rovers/:id Get rover by id
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.show = async function (req, res) {
   const rover = await Rover.findById(req.params.id);
 
@@ -33,6 +45,12 @@ exports.show = async function (req, res) {
   return returnData(res, rover);
 };
 
+/**
+ * @api {post} /api/rovers Create new rover
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.store = async function (req, res) {
   try {
     const result = await roverCreateSchema.validateAsync(req.body);
@@ -44,6 +62,12 @@ exports.store = async function (req, res) {
   return returnSuccess(res, "Rover created successfully");
 };
 
+/**
+ * @api {put} /api/rovers/:id Update rover
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.update = async function (req, res) {
   const rover = await Rover.findById(req.params.id);
 
@@ -61,6 +85,12 @@ exports.update = async function (req, res) {
   return returnSuccess(res, "Rover updated successfully");
 };
 
+/**
+ * @api {delete} /api/rovers/:id Delete rover
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.destroy = async function (req, res) {
   const rover = await Rover.findById(req.params.id);
 

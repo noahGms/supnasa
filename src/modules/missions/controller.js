@@ -2,6 +2,12 @@ const {returnData, returnSuccess, returnError} = require("../../helpers/response
 const Mission = require("./model");
 const {missionCreateSchema, missionUpdateSchema} = require("./validation");
 
+/**
+ * @api {get} /api/missions Get all missions
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.index = async function (req, res) {
   let sort = {};
 
@@ -25,6 +31,12 @@ exports.index = async function (req, res) {
   return returnData(res, missions);
 };
 
+/**
+ * @api {get} /api/missions/:id Get mission by id
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.show = async function (req, res) {
   const mission = await Mission.findById(req.params.id)
     .populate("author")
@@ -37,6 +49,12 @@ exports.show = async function (req, res) {
   return returnData(res, mission);
 };
 
+/**
+ * @api {post} /api/missions Create new mission
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.store = async function (req, res) {
   try {
     const result = await missionCreateSchema.validateAsync(req.body);
@@ -66,6 +84,12 @@ exports.store = async function (req, res) {
   return returnSuccess(res, "Mission created successfully");
 };
 
+/**
+ * @api {put} /api/missions/:id Update mission
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.update = async function (req, res) {
   const mission = await Mission.findById(req.params.id);
 
@@ -109,6 +133,12 @@ exports.update = async function (req, res) {
   return returnSuccess(res, "Mission updated successfully");
 };
 
+/**
+ * @api {delete} /api/missions/:id Delete mission
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
 exports.destroy = async function (req, res) {
   const mission = await Mission.findById(req.params.id);
 

@@ -2,6 +2,13 @@ const {returnUnAuthorized, returnError} = require("../helpers/responses");
 const User = require("../modules/users/model");
 const jwt = require("jsonwebtoken");
 
+/**
+ * @description Middleware to check if the user is authenticated
+ * @param req
+ * @param res
+ * @param next
+ * @returns {Promise<*>}
+ */
 exports.isAuth = async function (req, res, next) {
   const token = req.cookies.access_token;
 
