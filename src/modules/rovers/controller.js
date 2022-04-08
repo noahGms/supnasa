@@ -1,6 +1,8 @@
 const {returnData, returnError, returnSuccess} = require("../../helpers/responses");
 const Rover = require("./model");
 const {roverCreateSchema, roverUpdateSchema} = require("./validation");
+const {storeRoverImage, deleteRoverImage} = require("../image/service");
+const {getUploadsPath} = require("../../helpers/folders");
 
 /**
  * @api {get} /api/rovers Get all rovers
@@ -54,7 +56,13 @@ exports.show = async function (req, res) {
 exports.store = async function (req, res) {
   try {
     const result = await roverCreateSchema.validateAsync(req.body);
-    await Rover.create(result);
+
+    let image = null;
+    if (req.files !== null) {
+      image = await storeRoverImage(req.files.image);
+    }
+
+    await Rover.create({...result, ...(image ? {image} : {})});
   } catch (err) {
     return returnError(res, err.message);
   }
@@ -77,7 +85,16 @@ exports.update = async function (req, res) {
 
   try {
     const result = await roverUpdateSchema.validateAsync(req.body);
-    await Rover.findByIdAndUpdate(req.params.id, result);
+
+    let image = null;
+    if (req.files !== null) {
+      if (rover.image) {
+        deleteRoverImage(rover.image);
+      }
+      image = await storeRoverImage(req.files.image);
+    }
+
+    await Rover.findByIdAndUpdate(req.params.id, {...result, ...(image ? {image} : {})});
   } catch (err) {
     return returnError(res, err.message);
   }
@@ -102,7 +119,35 @@ exports.destroy = async function (req, res) {
     return returnError(res, "You can't delete this rover");
   }
 
-  await Rover.findByIdAndDelete(req.params.id);
+  try {
+    if (rover.image) {
+      deleteRoverImage(rover.image);
+    }
+
+    await Rover.findByIdAndDelete(req.params.id);
+  } catch (err) {
+    return returnError(res, err.message);
+  }
 
   return returnSuccess(res, "Rover deleted successfully");
+};
+
+/**
+ * @api {get} /api/rovers/:id/image Get rover image
+ * @param req
+ * @param res
+ * @returns {Promise<*>}
+ */
+exports.retrieveImage = async function (req, res) {
+  const rover = await Rover.findById(req.params.id);
+
+  if (!rover) {
+    return returnError(res, "Rover not found");
+  }
+
+  if (!rover.image) {
+    return returnError(res, "Rover has no image");
+  }
+
+  return res.sendFile(`${getUploadsPath()}/${rover.image}`);
 };

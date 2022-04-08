@@ -18,6 +18,10 @@ const roverSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image: {
+    type: String,
+    required: false,
+  },
 });
 
 const Rover = mongoose.model('Rover', roverSchema);
