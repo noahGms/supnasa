@@ -1,7 +1,7 @@
 const {returnData, returnError, returnSuccess} = require("../../helpers/responses");
 const Rover = require("./model");
 const {roverCreateSchema, roverUpdateSchema} = require("./validation");
-const {storeRoverImage, deleteRoverImage} = require("../image/service");
+const {storeRoverImage, deleteRoverImage} = require("./service");
 const {getUploadsPath} = require("../../helpers/folders");
 
 /**
