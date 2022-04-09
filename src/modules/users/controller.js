@@ -64,7 +64,7 @@ exports.update = async function (req, res) {
   }
 
   try {
-    const result = await userUpdateSchema.validateAsync(req.body);
+    const result = await userUpdateSchema.validateAsync(req.body, {context: {req}});
     await User.findByIdAndUpdate(req.params.id, result);
   } catch (error) {
     return returnError(res, error.message);

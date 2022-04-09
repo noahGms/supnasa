@@ -84,7 +84,7 @@ exports.update = async function (req, res) {
   }
 
   try {
-    const result = await roverUpdateSchema.validateAsync(req.body);
+    const result = await roverUpdateSchema.validateAsync(req.body, {context: {req}});
 
     let image = null;
     if (req.files !== null) {
