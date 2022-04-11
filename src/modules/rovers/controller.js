@@ -58,7 +58,7 @@ exports.store = async function (req, res) {
     const result = await roverCreateSchema.validateAsync(req.body);
 
     let image = null;
-    if (req.files !== null) {
+    if (req.files) {
       image = await storeRoverImage(req.files.image);
     }
 
@@ -87,7 +87,7 @@ exports.update = async function (req, res) {
     const result = await roverUpdateSchema.validateAsync(req.body, {context: {req}});
 
     let image = null;
-    if (req.files !== null) {
+    if (req.files) {
       if (rover.image) {
         deleteRoverImage(rover.image);
       }
