@@ -11,7 +11,7 @@ const User = require("../users/model");
 exports.login = async function(req, res) {
   const { email, password } = req.body;
   if (!email || !password) {
-    return returnError(res, 400, "Missing email or password");
+    return returnError(res, "Missing email or password");
   }
 
   const user = await User.findOne({ email }).select("+password");
