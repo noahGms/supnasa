@@ -3,12 +3,14 @@ const setupDB = require("./src/config/database");
 
 require("dotenv").config();
 function start() {
-  setupDB();
+  const db = setupDB();
 
   const port = process.env.PORT || 1234;
   server.listen(port, () => {
     console.log(`express server running on port ${port}`);
   });
+
+  return { server, db };
 }
 
-start();
+module.exports = start();

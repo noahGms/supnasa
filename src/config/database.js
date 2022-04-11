@@ -11,6 +11,8 @@ function setupDB() {
   db.once("open", () => {
     console.log("mongoose connection etablished");
   });
+
+  return db;
 }
 
 module.exports = setupDB;
