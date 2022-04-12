@@ -1,0 +1,22 @@
+[
+  {
+    "country": "US",
+    "startDate": "2017-01-01",
+    "endDate": "2017-12-31"
+  },
+  {
+    "country": "France",
+    "startDate": "2017-01-01",
+    "endDate": "2017-12-31"
+  },
+  {
+    "country": "Germany",
+    "startDate": "2017-01-01",
+    "endDate": "2017-12-31"
+  },
+  {
+    "country": "Italy",
+    "startDate": "2017-01-01",
+    "endDate": "2017-12-31"
+  }
+]

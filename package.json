@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha --recursive --exit --timeout 10000",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "seed": "node seed/index.js"
   },
   "keywords": [],
   "author": "",

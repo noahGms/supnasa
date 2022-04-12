@@ -1,0 +1,26 @@
+[
+  {
+    "email": "john.doe@example.com",
+    "pseudo": "JohnDoe",
+    "password": "123456",
+    "isAdmin": true
+  },
+  {
+    "email": "user2@example.com",
+    "pseudo": "User2",
+    "password": "123456",
+    "isAdmin": false
+  },
+  {
+    "email": "user3@example.com",
+    "pseudo": "User3",
+    "password": "123456",
+    "isAdmin": false
+  },
+  {
+    "email": "user4@example.com",
+    "pseudo": "User4",
+    "password": "123456",
+    "isAdmin": false
+  }
+]

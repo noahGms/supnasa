@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Rover 1",
+    "launchDate": "1961-01-01",
+    "constructionDate": "1961-01-01",
+    "manufacturer": "NASA"
+  },
+  {
+    "name": "Rover 2",
+    "launchDate": "1961-01-01",
+    "constructionDate": "1961-01-01",
+    "manufacturer": "NASA"
+  },
+  {
+    "name": "Rover 3",
+    "launchDate": "1961-01-01",
+    "constructionDate": "1961-01-01",
+    "manufacturer": "NASA"
+  },
+  {
+    "name": "Rover 4",
+    "launchDate": "1961-01-01",
+    "constructionDate": "1961-01-01",
+    "manufacturer": "NASA"
+  }
+]
