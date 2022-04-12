@@ -1,4 +1,4 @@
-const { db, server } = require("../index");
+const { db } = require("../index");
 const User = require("../src/modules/users/model");
 const Rover = require("../src/modules/rovers/model");
 const Mission = require("../src/modules/missions/model");
@@ -62,7 +62,7 @@ function importTest(name, path) {
 
 describe("hooks", function () {
   before(async function () {
-    await db.collections.users.drop();
+    await User.deleteMany({});
     user = await User.create({
       pseudo: "JohnDoe",
       email: "john.doe@example.com",
@@ -75,7 +75,7 @@ describe("hooks", function () {
       password: "123456",
     });
 
-    await db.collections.rovers.drop();
+    await Rover.deleteMany({});
 
     rover = await Rover.create({
       name: "Rover 1",
@@ -91,7 +91,7 @@ describe("hooks", function () {
       manufacturer: "IDK",
     });
 
-    await db.collections.missions.drop();
+    await Mission.deleteMany({});
 
     mission = await Mission.create({
       country: "France",
@@ -114,4 +114,11 @@ describe("hooks", function () {
   importTest("Rovers", "../src/modules/rovers/test");
   importTest("Missions", "../src/modules/missions/test");
   importTest("Users", "../src/modules/users/test");
+
+  after(async function () {
+    await User.deleteMany({});
+    await Rover.deleteMany({});
+    await Mission.deleteMany({});
+    await db.close();
+  });
 });
