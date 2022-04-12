@@ -297,7 +297,7 @@ describe("DELETE: /api/rovers/:id", () => {
   it("should return success", (done) => {
     request(server)
       .delete(`/api/rovers/${getTestRover()._id.toString()}`)
-      .set("Cookie", getTestCookieAdmin())
+      .set("Cookie", getTestCookie())
       .end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.message).to.be.a("string");
