@@ -1,12 +1,15 @@
 const { db, server } = require("../index");
 const User = require("../src/modules/users/model");
 const Rover = require("../src/modules/rovers/model");
+const Mission = require("../src/modules/missions/model");
 
 let cookie;
 let user;
 let user2;
 let rover;
 let rover2;
+let mission;
+let mission2;
 
 function getTestCookie() {
   return cookie;
@@ -32,6 +35,14 @@ function getTestRover2() {
   return rover2;
 }
 
+function getTestMission() {
+  return mission;
+}
+
+function getTestMission2() {
+  return mission2;
+}
+
 module.exports = {
   getTestCookie,
   setTestCookie,
@@ -39,6 +50,8 @@ module.exports = {
   getTestUser2,
   getTestRover,
   getTestRover2,
+  getTestMission,
+  getTestMission2,
 };
 
 function importTest(name, path) {
@@ -77,9 +90,28 @@ describe("hooks", function () {
       constructionDate: new Date("2019-08-06"),
       manufacturer: "IDK",
     });
+
+    await db.collections.missions.drop();
+
+    mission = await Mission.create({
+      country: "France",
+      startDate: new Date("2012-08-06"),
+      endDate: new Date("2012-08-07"),
+      rovers: [rover._id],
+      author: user._id,
+    });
+
+    mission2 = await Mission.create({
+      country: "United States",
+      startDate: new Date("2019-08-06"),
+      endDate: new Date("2019-08-07"),
+      rovers: [rover2._id],
+      author: user2._id,
+    });
   });
 
   importTest("Auth", "../src/modules/auth/test");
   importTest("Rovers", "../src/modules/rovers/test");
+  importTest("Missions", "../src/modules/missions/test");
   importTest("Users", "../src/modules/users/test");
 });
