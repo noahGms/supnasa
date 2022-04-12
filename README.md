@@ -6,13 +6,17 @@ https://go.postman.co/workspace/Supinfo~19a0ef69-c2bb-465c-a267-f927725f8a0a/col
 
 ## Setup Project
 
-### Step 1 : install dependancies `npm install`
+### Step 1 : Install dependancies `npm install`
 
-### Step 2 : move `.env.example` file to `.env`
+### Step 2 : Move `.env.example` file to `.env`
 
-### Step 3 : update database connection
+### Step 3 : Update database connection
 
-### Step 3 : run server by running `npm run start` commande
+### Step 4 : Run `npm run seed` command to seed database with fake/test data
+
+### Step 5 : Run server by running `npm run start` command
+
+### Step 6 : Enjoy !!!
 
 ## Available Scripts
 
@@ -28,4 +32,8 @@ Runs the api in development mode.
 
 ### `npm run test`
 
-Runs the test.
+Runs the test. (Important ! After each test running the database is cleared)
+
+### `npm run seed`
+
+Run seeder to add fake/test data in database
