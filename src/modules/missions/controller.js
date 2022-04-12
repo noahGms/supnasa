@@ -43,7 +43,7 @@ exports.show = async function (req, res) {
     .populate("rovers");
 
   if (!mission) {
-    return returnData(res, "Mission not found");
+    return returnError(res, "Mission not found");
   }
 
   return returnData(res, mission);
