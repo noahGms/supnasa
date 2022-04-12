@@ -1,6 +1,10 @@
-const {returnData, returnSuccess, returnError} = require("../../helpers/responses");
+const {
+  returnData,
+  returnSuccess,
+  returnError,
+} = require("../../helpers/responses");
 const Mission = require("./model");
-const {missionCreateSchema, missionUpdateSchema} = require("./validation");
+const { missionCreateSchema, missionUpdateSchema } = require("./validation");
 
 /**
  * @api {get} /api/missions Get all missions
@@ -24,7 +28,7 @@ exports.index = async function (req, res) {
   }
 
   const missions = await Mission.find()
-    .sort({...sort})
+    .sort({ ...sort })
     .populate("author")
     .populate("rovers");
 
@@ -62,21 +66,24 @@ exports.store = async function (req, res) {
     if (result.rovers) {
       const missions = await Mission.find({
         $and: [
-          {startDate: {$lte: result.startDate}},
-          {endDate: {$gte: result.endDate}},
-        ]
+          { startDate: { $lte: result.startDate } },
+          { endDate: { $gte: result.endDate } },
+        ],
       });
 
       for (let rover of result.rovers) {
         for (let mission of missions) {
           if (mission.rovers.includes(rover)) {
-            return returnError(res, `Rover ${rover} already assigned to another mission`);
+            return returnError(
+              res,
+              `Rover ${rover} already assigned to another mission`
+            );
           }
         }
       }
     }
 
-    await Mission.create({...result, author: req.user._id});
+    await Mission.create({ ...result, author: req.user._id });
   } catch (err) {
     return returnError(res, err.message);
   }
@@ -109,23 +116,25 @@ exports.update = async function (req, res) {
 
       const missions = await Mission.find({
         $and: [
-          {startDate: {$lte: mission.startDate}},
-          {endDate: {$gte: mission.endDate}},
-          {_id: {$ne: mission._id}}
-        ]
+          { startDate: { $lte: mission.startDate } },
+          { endDate: { $gte: mission.endDate } },
+          { _id: { $ne: mission._id } },
+        ],
       });
 
       for (let rover of rovers) {
         for (let mission of missions) {
           if (mission.rovers.includes(rover)) {
-            return returnError(res, `Rover ${rover} already assigned to another mission`);
+            return returnError(
+              res,
+              `Rover ${rover} already assigned to another mission`
+            );
           }
         }
       }
 
-      await Mission.findByIdAndUpdate(req.params.id, {rovers})
+      await Mission.findByIdAndUpdate(req.params.id, { rovers });
     }
-
   } catch (err) {
     return returnError(res, err.message);
   }

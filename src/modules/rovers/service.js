@@ -1,24 +1,24 @@
-const {v4} = require('uuid');
-const sharp = require('sharp');
-const fs = require('fs');
-const {getUploadsPath} = require("../../helpers/folders");
+const { v4 } = require("uuid");
+const sharp = require("sharp");
+const fs = require("fs");
+const { getUploadsPath } = require("../../helpers/folders");
 
 /**
  * @description Save image
  * @param file
  * @returns {Promise<string>}
  */
-exports.storeRoverImage = async function(file) {
-    const filename = generateFileName(file);
+exports.storeRoverImage = async function (file) {
+  const filename = generateFileName(file);
 
-    const path = `${getUploadsPath()}/${filename}`;
-    await file.mv(path);
+  const path = `${getUploadsPath()}/${filename}`;
+  await file.mv(path);
 
-    if (!await checkIfImageHasGoodDimensions(file)) {
-        await resizeImage(path);
-    }
+  if (!(await checkIfImageHasGoodDimensions(file))) {
+    await resizeImage(path);
+  }
 
-    return filename;
+  return filename;
 };
 
 /**
@@ -26,9 +26,9 @@ exports.storeRoverImage = async function(file) {
  * @param filename
  * @returns {void}
  */
-exports.deleteRoverImage = function(filename) {
-    const path = `${getUploadsPath()}/${filename}`;
-    return fs.unlinkSync(path);
+exports.deleteRoverImage = function (filename) {
+  const path = `${getUploadsPath()}/${filename}`;
+  return fs.unlinkSync(path);
 };
 
 /**
@@ -37,11 +37,9 @@ exports.deleteRoverImage = function(filename) {
  * @returns {Promise<void>}
  */
 async function resizeImage(path) {
-    const buffer = await sharp(path)
-        .resize(200, 200)
-        .toBuffer(path);
+  const buffer = await sharp(path).resize(200, 200).toBuffer(path);
 
-    return fs.writeFileSync(path, buffer);
+  return fs.writeFileSync(path, buffer);
 }
 
 /**
@@ -50,8 +48,8 @@ async function resizeImage(path) {
  * @returns {Promise<boolean>}
  */
 async function checkIfImageHasGoodDimensions(file) {
-    const dimensions = await sharp(file.data).metadata();
-    return !(dimensions.width > 200 || dimensions.height > 200);
+  const dimensions = await sharp(file.data).metadata();
+  return !(dimensions.width > 200 || dimensions.height > 200);
 }
 
 /**
@@ -60,8 +58,8 @@ async function checkIfImageHasGoodDimensions(file) {
  * @returns {string}
  */
 function generateFileName(file) {
-    const mimeType = getMimeType(file.mimetype);
-    return v4() + mimeType;
+  const mimeType = getMimeType(file.mimetype);
+  return v4() + mimeType;
 }
 
 /**
@@ -70,14 +68,14 @@ function generateFileName(file) {
  * @returns {string}
  */
 function getMimeType(mimetype) {
-    switch (mimetype) {
-        case 'image/jpeg':
-            return '.jpg';
-        case 'image/png':
-            return '.png';
-        case 'image/gif':
-            return '.gif';
-        default:
-            return '';
-    }
+  switch (mimetype) {
+    case "image/jpeg":
+      return ".jpg";
+    case "image/png":
+      return ".png";
+    case "image/gif":
+      return ".gif";
+    default:
+      return "";
+  }
 }

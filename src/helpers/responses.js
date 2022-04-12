@@ -6,7 +6,7 @@
  */
 exports.returnError = function (res, message) {
   return res.status(400).json({
-    error: message
+    error: message,
   });
 };
 
@@ -18,7 +18,7 @@ exports.returnError = function (res, message) {
  */
 exports.returnSuccess = function (res, message) {
   return res.status(200).json({
-    message
+    message,
   });
 };
 
@@ -32,7 +32,7 @@ exports.returnSuccess = function (res, message) {
 exports.returnSuccessWithData = function (res, message, data) {
   return res.status(200).json({
     message,
-    data
+    data,
   });
 };
 
@@ -44,7 +44,7 @@ exports.returnSuccessWithData = function (res, message, data) {
  */
 exports.returnData = function (res, data) {
   return res.status(200).json({
-    data
+    data,
   });
 };
 
@@ -56,6 +56,6 @@ exports.returnData = function (res, data) {
  */
 exports.returnUnAuthorized = function (res, message) {
   return res.status(401).json({
-    error: message
+    error: message,
   });
 };

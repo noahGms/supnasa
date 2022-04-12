@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const missionSchema = new mongoose.Schema({
   country: {
@@ -16,15 +16,15 @@ const missionSchema = new mongoose.Schema({
   rovers: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Rover',
+      ref: "Rover",
     },
   ],
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
 });
 
-const Mission = mongoose.model('Mission', missionSchema);
+const Mission = mongoose.model("Mission", missionSchema);
 
 module.exports = Mission;

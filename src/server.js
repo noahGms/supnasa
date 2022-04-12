@@ -13,14 +13,16 @@ server.use(cookieParser());
 server.use(helmet());
 server.use(morgan("common"));
 
-server.use(fileUpload({
-  createParentPath: true,
-}));
+server.use(
+  fileUpload({
+    createParentPath: true,
+  })
+);
 
 server.get("/", (req, res) => {
   res.json({ message: "Entry point of SUPNASA api !" });
 });
 
-server.use('/api', apiRoutes);
+server.use("/api", apiRoutes);
 
 module.exports = server;

@@ -1,6 +1,10 @@
 const User = require("./model");
-const {returnData, returnError, returnSuccess} = require("../../helpers/responses");
-const {userCreateSchema, userUpdateSchema} = require("./validation");
+const {
+  returnData,
+  returnError,
+  returnSuccess,
+} = require("../../helpers/responses");
+const { userCreateSchema, userUpdateSchema } = require("./validation");
 
 /**
  * @api {get} /api/users Get all users
@@ -64,7 +68,9 @@ exports.update = async function (req, res) {
   }
 
   try {
-    const result = await userUpdateSchema.validateAsync(req.body, {context: {req}});
+    const result = await userUpdateSchema.validateAsync(req.body, {
+      context: { req },
+    });
     await User.findByIdAndUpdate(req.params.id, result);
   } catch (error) {
     return returnError(res, error.message);

@@ -1,8 +1,12 @@
-const {returnData, returnError, returnSuccess} = require("../../helpers/responses");
+const {
+  returnData,
+  returnError,
+  returnSuccess,
+} = require("../../helpers/responses");
 const Rover = require("./model");
-const {roverCreateSchema, roverUpdateSchema} = require("./validation");
-const {storeRoverImage, deleteRoverImage} = require("./service");
-const {getUploadsPath} = require("../../helpers/folders");
+const { roverCreateSchema, roverUpdateSchema } = require("./validation");
+const { storeRoverImage, deleteRoverImage } = require("./service");
+const { getUploadsPath } = require("../../helpers/folders");
 
 /**
  * @api {get} /api/rovers Get all rovers
@@ -27,7 +31,9 @@ exports.index = async function (req, res) {
     sort.constructionDate = req.query.date;
   }
 
-  const rovers = await Rover.find().sort({...sort}).limit(limit);
+  const rovers = await Rover.find()
+    .sort({ ...sort })
+    .limit(limit);
   return returnData(res, rovers);
 };
 
@@ -41,7 +47,7 @@ exports.show = async function (req, res) {
   const rover = await Rover.findById(req.params.id);
 
   if (!rover) {
-    return returnError(res,"Rover not found");
+    return returnError(res, "Rover not found");
   }
 
   return returnData(res, rover);
@@ -62,7 +68,7 @@ exports.store = async function (req, res) {
       image = await storeRoverImage(req.files.image);
     }
 
-    await Rover.create({...result, ...(image ? {image} : {})});
+    await Rover.create({ ...result, ...(image ? { image } : {}) });
   } catch (err) {
     return returnError(res, err.message);
   }
@@ -84,7 +90,9 @@ exports.update = async function (req, res) {
   }
 
   try {
-    const result = await roverUpdateSchema.validateAsync(req.body, {context: {req}});
+    const result = await roverUpdateSchema.validateAsync(req.body, {
+      context: { req },
+    });
 
     let image = null;
     if (req.files) {
@@ -94,7 +102,10 @@ exports.update = async function (req, res) {
       image = await storeRoverImage(req.files.image);
     }
 
-    await Rover.findByIdAndUpdate(req.params.id, {...result, ...(image ? {image} : {})});
+    await Rover.findByIdAndUpdate(req.params.id, {
+      ...result,
+      ...(image ? { image } : {}),
+    });
   } catch (err) {
     return returnError(res, err.message);
   }

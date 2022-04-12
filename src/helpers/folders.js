@@ -5,5 +5,7 @@ const path = require("path");
  * @returns {string}
  */
 exports.getUploadsPath = function () {
-    return `${path.dirname(require.main.filename || process.mainModule.filename)}/uploads`;
+  return `${path.dirname(
+    require.main.filename || process.mainModule.filename
+  )}/uploads`;
 };
